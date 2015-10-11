@@ -1,34 +1,24 @@
-package spring.tutorial.domain;
+package spring.tutorial.dto;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import spring.tutorial.dto.Identifiable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 /**
  * Created by Robert on 10/11/2015.
  */
-
-@Entity
-public class Score implements Identifiable{
-    @Id
-    @GeneratedValue
+public class ScoreDto implements Identifiable {
     private Long id;
-
-    @Column(nullable = false)
     private String userName;
-
-    @Column(nullable = false)
     private Long score;
-
-    @Column(nullable = false)
-    @DateTimeFormat(pattern="dd.MM.yy hh:mm", iso = DateTimeFormat.ISO.NONE)
     private LocalDateTime date;
 
+    public ScoreDto(String userName, Long score, LocalDateTime date){
+        this.userName = userName;
+        this.score = score;
+        this.date = date;
+    }
+
+    @Override
     public Long getId() {
         return id;
     }
