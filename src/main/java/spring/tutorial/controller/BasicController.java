@@ -25,7 +25,7 @@ public class BasicController extends WebMvcConfigurerAdapter {
     }
 
     @MessageMapping("/nextTurn")
-    @SendTo("/game/{greetings}")
+    @SendTo("/game/{roomId}/nextTurn")
     public GameState nextTurn(String message) {
         GameState gameState = new GameState();
         gameState.setIsFinished(true);
@@ -35,7 +35,7 @@ public class BasicController extends WebMvcConfigurerAdapter {
     }
 
     @MessageMapping("/createNewGame")
-    @SendTo("/game/{roomId}")
+    @SendTo("/game/{roomId}/newGame")
     public String createNewGame(@DestinationVariable String roomId) {
         //create a room with a unique id
         return roomId;
@@ -48,13 +48,13 @@ public class BasicController extends WebMvcConfigurerAdapter {
     }
 
     @MessageMapping("/joinGame")
-    @SendTo("/game/{roomId}")
+    @SendTo("/game/{roomId}/joinGame")
     public String joinGame(@DestinationVariable String roomId) {
         return "Successfully Joined game";
     }
 
     @MessageMapping("/rematch")
-    @SendTo("game/{roomId}")
+    @SendTo("game/{roomId}/rematch")
     public GameState rematch(@DestinationVariable String roomId) {
         return new GameState();
     }

@@ -1,4 +1,4 @@
-app.service('playerService', function ($localStorage) {
+app.service('playerService', function ($rootScope, $localStorage) {
     var sock,
         stompClient,
         connected;
@@ -13,7 +13,13 @@ app.service('playerService', function ($localStorage) {
 
                 connected = true;
 
-                stompClient
+                stompClient.subscribe('/game/public', function (newUser) {
+                    $rootScope.$emit('newUser', { userName: newUser });
+
+                    if (newUser === $localStorage.getItem('currentUser')) {
+                        $rootScope.$emit('userCreated');
+                    }
+                });
             },
             function () {
                 console.log('Disconnected player');
@@ -25,6 +31,8 @@ app.service('playerService', function ($localStorage) {
         if (!connected) { return; }
 
         stompClient.send('/app/createNewUser', {}, userName);
+
+        $localStorage.setItem('currentUser', userName);
     };
 
     init();
