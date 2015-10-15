@@ -1,16 +1,19 @@
-app.service('gameService', function ($rootScope) {
+app.service('playerService', function ($localStorage) {
     var sock,
         stompClient,
         connected;
 
     var init = function () {
-        sock = new SockJS('/nextTurn');
+        sock = new SockJS('/newUser');
         stompClient = Stomp.over(sock);
 
         stompClient.connect({},
             function (frame) {
                 console.log('Connected to: ' + frame);
+
                 connected = true;
+
+                stompClient
             },
             function () {
                 console.log('Disconnected player');
@@ -18,14 +21,10 @@ app.service('gameService', function ($rootScope) {
         );
     };
 
-    this.enterGame = function (roomId) {
-        stompClient.subscribe('/game/' + roomId, function (gameState) {
-            $rootScope.$emit('gameStateChanged', { gameState: gameState });
-        });
-    };
+    this.createNewUser = function (userName) {
+        if (!connected) { return; }
 
-    this.sendMessage = function (message) {
-        sock.send(message);
+        stompClient.send('/app/createNewUser', {}, userName);
     };
 
     init();
