@@ -16,13 +16,13 @@
         }
 
         function connect() {
-            var socket = new SockJS('/app/nextTurn');
+            var socket = new SockJS('/nextTurn');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function(frame) {
                 setConnected(true);
                 console.log('Connected: ' + frame);
                 stompClient.subscribe('/game/greetings', function(greeting){
-                    showGreeting(JSON.parse(greeting.body).content);
+                    console.log(greeting);
                 });
             });
         }
