@@ -5,15 +5,16 @@ import java.util.List;
 /**
  * Created by Robert on 10/15/2015.
  */
-public class GameState {
+public class GameStateDto implements Identifiable{
 
+    private Long id;
     private String roomId;
     private boolean isFinished;
     private List<Cell> gameBoard;
     private String winnerName;
     private String nextPlayer;
-    private Player firstPlayer;
-    private Player secondPlayer;
+    private PlayerDto firstPlayerDto;
+    private PlayerDto secondPlayerDto;
 
     public boolean isFinished() {
         return isFinished;
@@ -47,20 +48,20 @@ public class GameState {
         this.nextPlayer = nextPlayer;
     }
 
-    public Player getFirstPlayer() {
-        return firstPlayer;
+    public PlayerDto getFirstPlayerDto() {
+        return firstPlayerDto;
     }
 
-    public void setFirstPlayer(Player firstPlayer) {
-        this.firstPlayer = firstPlayer;
+    public void setFirstPlayerDto(PlayerDto firstPlayerDto) {
+        this.firstPlayerDto = firstPlayerDto;
     }
 
-    public Player getSecondPlayer() {
-        return secondPlayer;
+    public PlayerDto getSecondPlayerDto() {
+        return secondPlayerDto;
     }
 
-    public void setSecondPlayer(Player secondPlayer) {
-        this.secondPlayer = secondPlayer;
+    public void setSecondPlayerDto(PlayerDto secondPlayerDto) {
+        this.secondPlayerDto = secondPlayerDto;
     }
 
     public String getRoomId() {
@@ -69,5 +70,14 @@ public class GameState {
 
     public void setRoomId(String roomId) {
         this.roomId = roomId;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

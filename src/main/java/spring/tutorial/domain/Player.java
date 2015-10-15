@@ -1,9 +1,16 @@
-package spring.tutorial.dto;
+package spring.tutorial.domain;
+
+
+import spring.tutorial.dto.Identifiable;
+
+import javax.persistence.Entity;
 
 /**
  * Created by Robert on 10/15/2015.
  */
-public class Player {
+@Entity
+public class Player implements Identifiable{
+    private Long id;
     private String name;
     private String weapon;
 
@@ -21,5 +28,14 @@ public class Player {
 
     public void setWeapon(String weapon) {
         this.weapon = weapon;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
