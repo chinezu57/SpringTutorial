@@ -1,5 +1,6 @@
 package spring.tutorial.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -7,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import spring.tutorial.domain.GameState;
 import spring.tutorial.dto.GameStateDto;
+import spring.tutorial.service.GameStateService;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +21,12 @@ import java.util.List;
 
 @Controller
 public class BasicController extends WebMvcConfigurerAdapter {
+
+    private GameStateService gameStateService;
+    @Autowired
+    public BasicController(GameStateService gameStateService) {
+        this.gameStateService = gameStateService;
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showForm() {
@@ -31,6 +40,7 @@ public class BasicController extends WebMvcConfigurerAdapter {
         gameStateDto.setIsFinished(true);
         gameStateDto.setNextPlayer("batman");
         gameStateDto.setWinnerName("batman");
+        gameStateDto.setIsFinished(gameStateService.gameStateFinishedCheck(gameStateDto));
         //check if game is finished
         //if finished update accordingly including gameboard with correct
         return gameStateDto;
@@ -44,6 +54,7 @@ public class BasicController extends WebMvcConfigurerAdapter {
         // select first player as X
         //save to db
         //return roomId
+        GameState gameState = gameStateService.createNewGame(roomId);
         return roomId;
     }
 
@@ -70,6 +81,7 @@ public class BasicController extends WebMvcConfigurerAdapter {
     @SendTo("game/public")
     public String createNewUser(String userName) {
         //save user (Player in db)
+        gameStateService.saveUser(userName);
         return "User: "+ userName + " registered.";
     }
 }
