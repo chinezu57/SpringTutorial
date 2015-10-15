@@ -1,15 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="x0app" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title></title>
+    <title>Tic Tac Toe</title>
+
+    <link rel="stylesheet" href="webjars/angular-material/0.11.0/angular-material.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"/>
 </head>
-<body>
+<body style="overflow: hidden">
 
-<video preload="auto" poster="http://img-9gag-fun.9cache.com/photo/a9PDE20_460s.jpg" width="600" loop="" muted="" autoplay="autoplay">
-    <source src="http://img-9gag-fun.9cache.com/photo/a9PDE20_460sv.mp4" type="video/mp4"/>
-    <source src="http://img-9gag-fun.9cache.com/photo/a9PDE20_460svwm.webm" type="video/webm"/>
-</video>
+<div ng-view=""></div>
 
+<script th:src="@{webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
+
+<script th:src="@{webjars/angularjs/1.4.7/angular.min.js}"></script>
+<script th:src="@{webjars/angularjs/1.4.7/angular-animate.min.js}"></script>
+<script th:src="@{webjars/angularjs/1.4.7/angular-aria.min.js}"></script>
+<script th:src="@{webjars/angularjs/1.4.7/angular-route.min.js}"></script>
+
+<script th:src="@{webjars/angular-material/0.11.0/angular-material.min.js}"></script>
+
+<script type="text/javascript" th:src="@{js/app.js}"></script>
+<script type="text/javascript" th:src="@{js/main-ctrl.js}"></script>
+<script type="text/javascript" th:src="@{js/message-interpretor.js}"></script>
+<script type="text/javascript" th:src="@{js/communication-service.js}"></script>
+<script type="text/javascript" th:src="@{js/game-service.js}"></script>
+<script type="text/javascript" th:src="@{js/user-service.js}"></script>
 </body>
 </html>
