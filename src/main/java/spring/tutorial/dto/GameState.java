@@ -7,10 +7,13 @@ import java.util.List;
  */
 public class GameState {
 
+    private String roomId;
     private boolean isFinished;
-    private List<CellState> gameBoard;
+    private List<Cell> gameBoard;
     private String winnerName;
     private String nextPlayer;
+    private Player firstPlayer;
+    private Player secondPlayer;
 
     public boolean isFinished() {
         return isFinished;
@@ -20,11 +23,11 @@ public class GameState {
         this.isFinished = isFinished;
     }
 
-    public List<CellState> getGameBoard() {
+    public List<Cell> getGameBoard() {
         return gameBoard;
     }
 
-    public void setGameBoard(List<CellState> gameBoard) {
+    public void setGameBoard(List<Cell> gameBoard) {
         this.gameBoard = gameBoard;
     }
 
@@ -42,5 +45,29 @@ public class GameState {
 
     public void setNextPlayer(String nextPlayer) {
         this.nextPlayer = nextPlayer;
+    }
+
+    public Player getFirstPlayer() {
+        return firstPlayer;
+    }
+
+    public void setFirstPlayer(Player firstPlayer) {
+        this.firstPlayer = firstPlayer;
+    }
+
+    public Player getSecondPlayer() {
+        return secondPlayer;
+    }
+
+    public void setSecondPlayer(Player secondPlayer) {
+        this.secondPlayer = secondPlayer;
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
     }
 }
