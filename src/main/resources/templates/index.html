@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="webjars/angular-material/0.11.0/angular-material.min.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic"/>
 </head>
-<body style="overflow: hidden;">
+<body>
 
 <div ng-view=""></div>
 
-<script th:src="@{webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
-<script th:src="@{webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
+<script th:src="@{webjars/sockjs-client/1.0.3/dist/sockjs-1.0.3.min.js}"></script>
+<script th:src="@{webjars/stomp-websocket/2.3.4/lib/stomp.js}"></script>
 
 <script th:src="@{webjars/angularjs/1.4.7/angular.min.js}"></script>
 <script th:src="@{webjars/angularjs/1.4.7/angular-animate.min.js}"></script>
@@ -25,8 +25,8 @@
 <script type="text/javascript" th:src="@{js/main-ctrl.js}"></script>
 <script type="text/javascript" th:src="@{js/login-ctrl.js}"></script>
 <script type="text/javascript" th:src="@{js/game-ctrl.js}"></script>
-<script type="text/javascript" th:src="@{js/message-interpretor.js}"></script>
 <script type="text/javascript" th:src="@{js/player-service.js}"></script>
+<script type="text/javascript" th:src="@{js/room-service.js}"></script>
 
 </body>
 </html>

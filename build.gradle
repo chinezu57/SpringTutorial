@@ -53,8 +53,8 @@ dependencies {
 
     compile 'org.webjars:angularjs:1.4.7'
     compile 'org.webjars:angular-material:0.11.0'
-    compile 'org.webjars:sockjs-client:1.0.2'
-    compile 'org.webjars:stomp-websocket:2.3.3'
+    compile 'org.webjars.bower:sockjs-client:1.0.3'
+    compile 'org.webjars.bower:stomp-websocket:2.3.4'
     compile 'org.webjars.bower:ngstorage:0.3.9'
 
     runtime 'mysql:mysql-connector-java:5.1.26'
@@ -62,4 +62,14 @@ dependencies {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
+}
+
+configurations.all {
+    resolutionStrategy {
+        eachDependency {
+            if (it.requested.group == 'org.springframework') {
+                it.useVersion '4.2.2.RELEASE'
+            }
+        }
+    }
 }

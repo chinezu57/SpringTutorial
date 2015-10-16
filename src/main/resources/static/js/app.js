@@ -1,8 +1,8 @@
 var app =
-    angular.module('x0app', ['ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial'])
+    angular.module('x0app', ['ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial', 'ngStorage'])
         .config(function ($routeProvider) {
             $routeProvider
-                .when('/players', {
+                .when('/rooms', {
                     templateUrl: '/views/main.html',
                     controller: 'MainCtrl'
                 })

@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.socket.TextMessage;
 import spring.tutorial.domain.GameState;
 import spring.tutorial.dto.GameStateDto;
 import spring.tutorial.service.GameStateService;
@@ -23,10 +25,12 @@ import java.util.List;
 public class BasicController extends WebMvcConfigurerAdapter {
 
     private GameStateService gameStateService;
+    private SimpMessagingTemplate simpMessagingTemplate;
 
     @Autowired
-    public BasicController(GameStateService gameStateService) {
+    public BasicController(GameStateService gameStateService, SimpMessagingTemplate simpMessagingTemplate) {
         this.gameStateService = gameStateService;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -45,11 +49,11 @@ public class BasicController extends WebMvcConfigurerAdapter {
         return gameStateDto;
     }
 
-    @MessageMapping("/createNewGame")
+    @MessageMapping("/createNewGame/{roomId}")
     @SendTo("/game/{roomId}/newGame")
-    public String createNewGame(@DestinationVariable String roomId) {
-        GameState gameState = gameStateService.createNewGame(roomId);
-        return roomId;
+    public String createNewGame(@DestinationVariable String roomId, String room) {
+        GameState gameState = gameStateService.createNewGame(room);
+        return room;
     }
 
     @MessageMapping("/getAllRooms")
@@ -66,16 +70,16 @@ public class BasicController extends WebMvcConfigurerAdapter {
     }
 
     @MessageMapping("/rematch")
-    @SendTo("game/{roomId}/rematch")
+    @SendTo("/game/{roomId}/rematch")
     public GameStateDto rematch(@DestinationVariable String roomId) {
         gameStateService.rematch(roomId);
         return new GameStateDto();
     }
 
     @MessageMapping("/createNewUser")
-    @SendTo("game/public")
+    @SendTo("/game/public")
     public String createNewUser(String userName) {
         gameStateService.saveUser(userName);
-        return "User: "+ userName + " registered.";
+        return userName;
     }
 }

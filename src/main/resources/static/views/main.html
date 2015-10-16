@@ -1,7 +1,14 @@
-<md-content layout="row" layout-padding layout-wrap layout-fill layout-align="center center" md-scroll-y>
-    <md-whiteframe class="md-whiteframe-z2" flex="50" layout="column">
-        <md-content>
-            <div ng-repeat="player in players track by $index" layout-padding> {{ player }}</div>
-        </md-content>
-    </md-whiteframe>
+<md-content layout-padding>
+    <md-list>
+        <md-list-item class="md-3-line" ng-repeat="room in rooms">
+            <div class="md-list-item-text">
+                <h3>{{room.roomId}}</h3>
+                <h4>{{room.firstPlayer}}</h4>
+                <p>Join this game by clicking here</p>
+            </div>
+            <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+    </md-list>
+    <md-button class="md-primary" ng-click="createNewRoom()">Create new room</md-button>
+    <div ng-if="rooms.length === 0">No rooms available</div>
 </md-content>

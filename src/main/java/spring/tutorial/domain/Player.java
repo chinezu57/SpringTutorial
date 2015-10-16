@@ -2,6 +2,7 @@ package spring.tutorial.domain;
 
 import spring.tutorial.dto.Identifiable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 public class Player implements Identifiable {
     @Id
     @GeneratedValue
+    @Column
     private Long id;
     private String name;
     private String weapon;

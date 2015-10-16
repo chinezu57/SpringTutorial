@@ -7,9 +7,11 @@ app.service('roomService', function ($rootScope) {
             function (frame) {
                 console.log('Connected to: ' + frame);
 
-                stompClient.subscribe('/game/allRooms', function (rooms) {
-                    $rootScope.$emit('newRoom', { rooms: rooms });
+                stompClient.subscribe('/game/allRooms', function (data) {
+                    $rootScope.$emit('newRoom', { rooms: data });
                 });
+
+                stompClient.send('/app/getAllRooms', {});
             },
             function () {
                 console.log('Disconnected ');
@@ -38,25 +40,24 @@ app.service('roomService', function ($rootScope) {
     };
 
     this.createNewGame = function (roomId) {
-        var sock = new SockJS('/createNewGame'),
+        var sock = new SockJS('/createNewGame/' + roomId),
             stompClient = Stomp.over(sock);
 
         stompClient.connect({},
             function (frame) {
                 console.log('Connected to: ' + frame);
 
-                stompClient.send('/app/createNewGame', {}, roomId);
-
                 stompClient.subscribe('/game/' + roomId + '/newGame', function (roomId) {
-                    stompClient.subscribe('/game/' + roomId + '/nextTurn', function (gameState) {
+                    $rootScope.$emit('gameCreated');
+                    stompClient.subscribe('/game/' + roomId.body + '/nextTurn', function (gameState) {
                         $rootScope.$emit('nextTurn', { gameState: gameState });
                     });
                 });
 
-                stompClient.disconnect();
+                stompClient.send('/app/createNewGame/' + roomId , {}, roomId);
             },
             function () {
-                console.log('Room created');
+                console.log('disconnect new game');
             }
         );
     };

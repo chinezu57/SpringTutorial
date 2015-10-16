@@ -24,7 +24,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/nextTurn").withSockJS();
         registry.addEndpoint("/joinGame").withSockJS();
         registry.addEndpoint("/getAllRooms").withSockJS();
-        registry.addEndpoint("/createNewGame").withSockJS();
+        registry.addEndpoint("/createNewGame/{roomId}").withSockJS();
         registry.addEndpoint("/rematch").withSockJS();
         registry.addEndpoint("/createNewUser").withSockJS();
     }

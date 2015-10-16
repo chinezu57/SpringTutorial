@@ -1,57 +1,17 @@
-app.controller('MainCtrl', function ($scope, $rootScope, $mdDialog) {
-    $scope.currentUserType = 'X';
+app.controller('MainCtrl', function ($scope, $rootScope, $localStorage, $location, roomService) {
+    $scope.rooms = [];
 
-    $scope.players = [
-        'aaa',
-        'bbb',
-        'ccc',
-        'ddd',
-        'aaa',
-        'bbb',
-        'ccc',
-        'ddd',
-        'aaa',
-        'bbb',
-        'ccc',
-        'ddd',
-        'aaa',
-        'bbb',
-        'ccc',
-        'ddd',
-        'aaa',
-        'bbb',
-        'ccc',
-        'ddd',
-        'aaa',
-        'bbb',
-        'ccc',
-        'ddd',
-        'aaa',
-        'bbb',
-        'ccc',
-        'ddd',
-        'aaa',
-        'bbb',
-        'ccc',
-        'ddd'
-    ];
+    $rootScope.$on('newRoom', function (ev, data) {
+        $scope.rooms = data.rooms.body.slice(1, data.rooms.body.length - 1);
+    });
 
-    $scope.selectCell = function (cell, ev) {
-        if (!cell.type) {
-            cell.type = $scope.currentUserType;
-        }
+    $rootScope.$on('gameCreated', function () {
+        $location.path('/game');
+
+        $rootScope.$apply();
+    });
+
+    $scope.createNewRoom = function () {
+          roomService.createNewGame($localStorage.currentUser);
     };
-
-    var showWinningModal = function (ev) {
-        $mdDialog.show(
-            $mdDialog.alert()
-                .parent(angular.element(document.body))
-                .clickOutsideToClose(true)
-                .title('Winner')
-                .content('Congratulation, you won!')
-                .ariaLabel('Winner dialog')
-                .ok('Thanks!')
-                .targetEvent(ev)
-        );
-    }
 });

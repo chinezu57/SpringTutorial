@@ -14,6 +14,7 @@ import spring.tutorial.service.GameStateService;
 import spring.tutorial.service.mapper.GameStateMapper;
 import spring.tutorial.service.mapper.PlayerMapper;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class GameStateServiceImpl implements GameStateService {
             gameState.setFirstPlayer(player1);
         }
 
-        return null;
+        return gameState;
     }
 
     @Override
@@ -73,7 +74,7 @@ public class GameStateServiceImpl implements GameStateService {
 
     @Override
     public List<GameStateDto> getAllActiveGames() {
-        LinkedList<GameStateDto> gameStateDtos = (LinkedList<GameStateDto>) gameStateMapper.map(gameStateRepository.findByIsFinished(false));
+        ArrayList<GameStateDto> gameStateDtos = (ArrayList<GameStateDto>) gameStateMapper.map(gameStateRepository.findByIsFinished(false));
         return gameStateDtos;
     }
 
