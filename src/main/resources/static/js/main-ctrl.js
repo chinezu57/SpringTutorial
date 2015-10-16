@@ -1,6 +1,41 @@
 app.controller('MainCtrl', function ($scope, $rootScope, $mdDialog) {
     $scope.currentUserType = 'X';
 
+    $scope.players = [
+        'aaa',
+        'bbb',
+        'ccc',
+        'ddd',
+        'aaa',
+        'bbb',
+        'ccc',
+        'ddd',
+        'aaa',
+        'bbb',
+        'ccc',
+        'ddd',
+        'aaa',
+        'bbb',
+        'ccc',
+        'ddd',
+        'aaa',
+        'bbb',
+        'ccc',
+        'ddd',
+        'aaa',
+        'bbb',
+        'ccc',
+        'ddd',
+        'aaa',
+        'bbb',
+        'ccc',
+        'ddd',
+        'aaa',
+        'bbb',
+        'ccc',
+        'ddd'
+    ];
+
     $scope.selectCell = function (cell, ev) {
         if (!cell.type) {
             cell.type = $scope.currentUserType;

@@ -1,20 +1,7 @@
-<md-container layout-align="center center">
-    <div layout="row" layout-align="center center" ng-repeat="row in gameStatus.rows">
-        <md-card
-                flex
-                style="height: 150px; width: 150px; max-width: 150px; font-size: 100px; background-color: {{ col.win ? '#D32F2F' : '#fff' }};"
-                layout-align="center center"
-                ng-repeat="col in row.cols"
-                ng-click="selectCell(col, $event)">
-            {{ col.type }}
-        </md-card>
-    </div>
-</md-container>
-<md-list>
-    <md-list-item class="md-2-line">
-        <div class="md-list-item-text">
-            <h3>a</h3>
-            <p>b</p>
-        </div>
-    </md-list-item>
-</md-list>
+<md-content layout="row" layout-padding layout-wrap layout-fill layout-align="center center" md-scroll-y>
+    <md-whiteframe class="md-whiteframe-z2" flex="50" layout="column">
+        <md-content>
+            <div ng-repeat="player in players track by $index" layout-padding> {{ player }}</div>
+        </md-content>
+    </md-whiteframe>
+</md-content>
