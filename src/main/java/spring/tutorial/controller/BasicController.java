@@ -36,11 +36,7 @@ public class BasicController extends WebMvcConfigurerAdapter {
 
     @MessageMapping("/nextTurn")
     @SendTo("/game/{roomId}/nextTurn")
-    public GameStateDto nextTurn(@DestinationVariable String roomId, GameStateDto message) {
-        GameStateDto gameStateDto = new GameStateDto();
-        gameStateDto.setIsFinished(true);
-        gameStateDto.setNextPlayer("batman");
-        gameStateDto.setWinnerName("batman");
+    public GameStateDto nextTurn(@DestinationVariable String roomId, GameStateDto gameStateDto) {
         gameStateDto.setIsFinished(gameStateService.gameStateFinishedCheck(gameStateDto));
         return gameStateDto;
     }
