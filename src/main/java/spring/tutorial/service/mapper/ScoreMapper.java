@@ -1,11 +1,13 @@
 package spring.tutorial.service.mapper;
 
+import org.springframework.stereotype.Component;
 import spring.tutorial.domain.Score;
 import spring.tutorial.dto.ScoreDto;
 
 /**
  * Created by Robert on 10/11/2015.
  */
+@Component
 public class ScoreMapper extends AbstractMapper<ScoreDto, Score>{
 
     @Override

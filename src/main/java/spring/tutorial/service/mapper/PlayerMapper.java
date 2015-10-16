@@ -1,11 +1,13 @@
 package spring.tutorial.service.mapper;
 
+import org.springframework.stereotype.Component;
 import spring.tutorial.domain.Player;
 import spring.tutorial.dto.PlayerDto;
 
 /**
  * Created by Robert on 10/15/2015.
  */
+@Component
 public class PlayerMapper extends AbstractMapper<PlayerDto, Player> {
     @Override
     public PlayerDto map(Player player) {

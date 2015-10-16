@@ -21,4 +21,6 @@ public interface GameStateService {
     GameState joinGame(String roomId, String userName);
 
     GameStateDto rematch(String roomId);
+
+    boolean checkIfGameIsWon(GameStateDto gameStateDto);
 }

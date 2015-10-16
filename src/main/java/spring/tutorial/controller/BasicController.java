@@ -23,6 +23,7 @@ import java.util.List;
 public class BasicController extends WebMvcConfigurerAdapter {
 
     private GameStateService gameStateService;
+
     @Autowired
     public BasicController(GameStateService gameStateService) {
         this.gameStateService = gameStateService;

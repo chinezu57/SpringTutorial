@@ -21,7 +21,7 @@ import java.util.List;
  * @author Cristian Ilca, Catalysts Romania on 16-Oct-15.
  */
 @Service
-public class GameStateServiceImpl implements GameStateService{
+public class GameStateServiceImpl implements GameStateService {
 
     private GameStateRepository gameStateRepository;
     private PlayerRepository playerRepository;
@@ -38,8 +38,7 @@ public class GameStateServiceImpl implements GameStateService{
 
     @Override
     public boolean gameStateFinishedCheck(GameStateDto gameStateDto) {
-        if(gameStateDto.getGameBoard().contains(CellState.EMPTY)) {
-
+        if (!gameStateDto.getGameBoardList().contains(CellState.EMPTY) && checkIfGameIsWon(gameStateDto)) {
             return true;
         }
         return false;
@@ -48,7 +47,7 @@ public class GameStateServiceImpl implements GameStateService{
     @Override
     public GameState createNewGame(String roomId) {
         GameState gameState = gameStateRepository.findByRoomId(roomId);
-        if(gameState == null) {
+        if (gameState == null) {
             gameState = new GameState();
             PlayerDto player = new PlayerDto();
             player.setName(roomId);
@@ -64,7 +63,7 @@ public class GameStateServiceImpl implements GameStateService{
     @Override
     public Player saveUser(String username) {
         Player player = playerRepository.findByName(username);
-        if(player == null) {
+        if (player == null) {
             player = new Player();
             player.setName(username);
             playerRepository.save(player);
@@ -98,8 +97,56 @@ public class GameStateServiceImpl implements GameStateService{
         newGameState.setFirstPlayer(gameState.getFirstPlayer());
         newGameState.setSecondPlayer(gameState.getSecondPlayer());
         newGameState.setIsFinished(false);
-        newGameState.setGameBoard(new LinkedList<Cell>());
+        newGameState.setGameBoard(new Cell[9]);
         newGameState.setNextPlayer(gameState.getFirstPlayer().getName());
         return gameStateMapper.map(gameStateRepository.save(newGameState));
+    }
+
+    @Override
+    public boolean checkIfGameIsWon(GameStateDto gameStateDto) {
+        if (check00toNN(gameStateDto) || check0NtoN0(gameStateDto) || checkCols(gameStateDto) || checkRows(gameStateDto)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkRows(GameStateDto gameStateDto) {
+        Cell[] board = gameStateDto.getGameBoard();
+        for (int i = 0; i < 7; i += 3) {
+            if (board[i] == board[i + 1] && board[i] == board[i + 2]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkCols(GameStateDto gameStateDto) {
+        Cell[] board = gameStateDto.getGameBoard();
+        for (int i = 3; i < 6; i++) {
+            if (board[i - 3] == board[i] && board[i] == board[i + 3]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean check0NtoN0(GameStateDto gameStateDto) {
+        Cell[] board = gameStateDto.getGameBoard();
+        for (int i = 4; i < 6; i += 2) {
+            if (board[i - 2] != board[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean check00toNN(GameStateDto gameStateDto) {
+        Cell[] board = gameStateDto.getGameBoard();
+        for (int i = 4; i < 8; i += 4) {
+            if (board[i - 4] != board[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 }

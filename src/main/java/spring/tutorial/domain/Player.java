@@ -11,7 +11,7 @@ import javax.persistence.Id;
  * Created by Robert on 10/15/2015.
  */
 @Entity
-public class Player implements Identifiable{
+public class Player implements Identifiable {
     @Id
     @GeneratedValue
     private Long id;

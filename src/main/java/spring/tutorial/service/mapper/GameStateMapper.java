@@ -1,6 +1,7 @@
 package spring.tutorial.service.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import spring.tutorial.domain.GameState;
 import spring.tutorial.domain.Player;
 import spring.tutorial.dto.GameStateDto;
@@ -8,9 +9,11 @@ import spring.tutorial.dto.GameStateDto;
 /**
  * Created by Robert on 10/15/2015.
  */
-public class GameStateMapper extends AbstractMapper<GameStateDto,GameState> {
+@Component
+public class GameStateMapper extends AbstractMapper<GameStateDto, GameState> {
+
     @Autowired
-    PlayerMapper playerMapper;
+    private PlayerMapper playerMapper;
 
     @Override
     public GameStateDto map(GameState gameState) {

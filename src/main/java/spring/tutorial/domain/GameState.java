@@ -2,26 +2,26 @@ package spring.tutorial.domain;
 
 import spring.tutorial.dto.Cell;
 import spring.tutorial.dto.Identifiable;
-import spring.tutorial.dto.PlayerDto;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by Robert on 10/15/2015.
  */
 @Entity
-public class GameState implements Identifiable{
+public class GameState implements Identifiable {
     @Id
     @GeneratedValue
     private Long id;
     private String roomId;
     private boolean isFinished;
-    private List<Cell> gameBoard;
+    @OrderColumn
+    private Cell[] gameBoard;
     private String winnerName;
     private String nextPlayer;
-    @OneToOne(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToOne
     private Player firstPlayer;
+    @OneToOne
     private Player secondPlayer;
 
     public Long getId() {
@@ -46,14 +46,6 @@ public class GameState implements Identifiable{
 
     public void setIsFinished(boolean isFinished) {
         this.isFinished = isFinished;
-    }
-
-    public List<Cell> getGameBoard() {
-        return gameBoard;
-    }
-
-    public void setGameBoard(List<Cell> gameBoard) {
-        this.gameBoard = gameBoard;
     }
 
     public String getWinnerName() {
@@ -86,5 +78,13 @@ public class GameState implements Identifiable{
 
     public void setSecondPlayer(Player secondPlayer) {
         this.secondPlayer = secondPlayer;
+    }
+
+    public Cell[] getGameBoard() {
+        return gameBoard;
+    }
+
+    public void setGameBoard(Cell[] gameBoard) {
+        this.gameBoard = gameBoard;
     }
 }
