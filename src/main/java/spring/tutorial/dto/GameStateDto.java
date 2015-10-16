@@ -1,11 +1,12 @@
 package spring.tutorial.dto;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by Robert on 10/15/2015.
  */
-public class GameStateDto implements Identifiable{
+public class GameStateDto implements Identifiable {
 
     private Long id;
     private String roomId;
@@ -24,12 +25,12 @@ public class GameStateDto implements Identifiable{
         this.isFinished = isFinished;
     }
 
-    public List<Cell> getGameBoard() {
-        return gameBoard;
+    public Cell[] getGameBoard() {
+        return gameBoard.toArray(new Cell[9]);
     }
 
-    public void setGameBoard(List<Cell> gameBoard) {
-        this.gameBoard = gameBoard;
+    public void setGameBoard(Cell[] gameBoard) {
+        this.gameBoard = Arrays.asList(gameBoard);
     }
 
     public String getWinnerName() {
@@ -79,5 +80,9 @@ public class GameStateDto implements Identifiable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Cell> getGameBoardList() {
+        return gameBoard;
     }
 }
