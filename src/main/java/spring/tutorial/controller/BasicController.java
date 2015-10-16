@@ -41,46 +41,39 @@ public class BasicController extends WebMvcConfigurerAdapter {
         gameStateDto.setNextPlayer("batman");
         gameStateDto.setWinnerName("batman");
         gameStateDto.setIsFinished(gameStateService.gameStateFinishedCheck(gameStateDto));
-        //check if game is finished
-        //if finished update accordingly including gameboard with correct
         return gameStateDto;
     }
 
     @MessageMapping("/createNewGame")
     @SendTo("/game/{roomId}/newGame")
     public String createNewGame(@DestinationVariable String roomId) {
-        //create a room with a unique id
-        //create the gamestate roomId = first player name
-        // select first player as X
-        //save to db
-        //return roomId
         GameState gameState = gameStateService.createNewGame(roomId);
         return roomId;
     }
 
     @MessageMapping("/getAllRooms")
     @SendTo("/game/allRooms")
-    public List<String> getAllRooms() {
-        return new LinkedList<>();
+    public List<GameStateDto> getAllRooms() {
+        return gameStateService.getAllActiveGames();
     }
 
     @MessageMapping("/joinGame")
     @SendTo("/game/{roomId}/joinGame")
-    public String joinGame(@DestinationVariable String roomId) {
-        //search for gameState in db that has this roomId
+    public String joinGame(@DestinationVariable String roomId, String userName) {
+        gameStateService.joinGame(roomId, userName);
         return "Successfully Joined game";
     }
 
     @MessageMapping("/rematch")
     @SendTo("game/{roomId}/rematch")
     public GameStateDto rematch(@DestinationVariable String roomId) {
+        gameStateService.rematch(roomId);
         return new GameStateDto();
     }
 
     @MessageMapping("/createNewUser")
     @SendTo("game/public")
     public String createNewUser(String userName) {
-        //save user (Player in db)
         gameStateService.saveUser(userName);
         return "User: "+ userName + " registered.";
     }

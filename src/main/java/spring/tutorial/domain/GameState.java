@@ -4,21 +4,25 @@ import spring.tutorial.dto.Cell;
 import spring.tutorial.dto.Identifiable;
 import spring.tutorial.dto.PlayerDto;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by Robert on 10/15/2015.
  */
+@Entity
 public class GameState implements Identifiable{
-
+    @Id
+    @GeneratedValue
     private Long id;
     private String roomId;
     private boolean isFinished;
     private List<Cell> gameBoard;
     private String winnerName;
     private String nextPlayer;
-    private PlayerDto firstPlayerDto;
-    private PlayerDto secondPlayerDto;
+    @OneToOne(mappedBy = "id", cascade = CascadeType.ALL)
+    private Player firstPlayer;
+    private Player secondPlayer;
 
     public Long getId() {
         return id;
@@ -68,19 +72,19 @@ public class GameState implements Identifiable{
         this.nextPlayer = nextPlayer;
     }
 
-    public PlayerDto getFirstPlayerDto() {
-        return firstPlayerDto;
+    public Player getFirstPlayer() {
+        return firstPlayer;
     }
 
-    public void setFirstPlayerDto(PlayerDto firstPlayerDto) {
-        this.firstPlayerDto = firstPlayerDto;
+    public void setFirstPlayer(Player firstPlayer) {
+        this.firstPlayer = firstPlayer;
     }
 
-    public PlayerDto getSecondPlayerDto() {
-        return secondPlayerDto;
+    public Player getSecondPlayer() {
+        return secondPlayer;
     }
 
-    public void setSecondPlayerDto(PlayerDto secondPlayerDto) {
-        this.secondPlayerDto = secondPlayerDto;
+    public void setSecondPlayer(Player secondPlayer) {
+        this.secondPlayer = secondPlayer;
     }
 }
